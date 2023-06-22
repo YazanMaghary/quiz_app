@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:team_quiz_app/pages/home.dart';
 import 'package:team_quiz_app/widgets/my_outline_btn.dart';
 
 import '../constants.dart';
+import '../widgets/my_outline_btn.dart';
+import 'home.dart';
 
 class MultiQScreen extends StatefulWidget {
     static const routeName='level2';
