@@ -18,6 +18,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
   var questionNumber = 5;
   var questionsCount = 10;
   int userChiose = 0;
+  int? choise;
   QuizBrainMulti quiz_multi = QuizBrainMulti();
   Icon? icon;
   int maxWaiting = 10;
@@ -36,7 +37,9 @@ class _MultiQScreenState extends State<MultiQScreen> {
       scoreKeeper.add(false);
       isCorrect = false;
     }
+  }
 
+  void checkQuestion() {
     if (quiz_multi.isFinished()) {
       timer.cancel();
       print('finished');
@@ -51,7 +54,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
       });
     } else {
       quiz_multi.nextQuestion();
-      isCorrect = null;
+      // isCorrect = null;
     }
   }
 
@@ -218,6 +221,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
+                            userChiose = index;
                             checkAnswer(index);
                           });
                         },
@@ -269,9 +273,15 @@ class _MultiQScreenState extends State<MultiQScreen> {
                   },
                 ),
               ),
-              SizedBox(
-                height: 48,
-              ),
+              ElevatedButton(
+                  onPressed: () {
+                    // checkAnswer(choise);
+                    setState(() {
+                      checkQuestion();
+                      isCorrect = null;
+                    });
+                  },
+                  child: Text("Next"))
             ],
           ),
         ),
