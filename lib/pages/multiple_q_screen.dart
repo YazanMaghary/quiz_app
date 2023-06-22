@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:team_quiz_app/pages/result.dart';
+import 'package:team_quiz_app/pages/home.dart';
 import 'package:team_quiz_app/pages/home.dart';
 import 'package:team_quiz_app/widgets/my_outline_btn.dart';
-
 import '../constants.dart';
 import '../modules/multipe_choice/quizBrainMultiple.dart';
 
@@ -19,7 +20,8 @@ class MultiQScreen extends StatefulWidget {
 class _MultiQScreenState extends State<MultiQScreen> {
   var questionNumber = 5;
   var questionsCount = 10;
-  int userChiose = 0;
+  int? userChiose;
+  int counter = 10;
   int? choise;
   QuizBrainMulti quiz_multi = QuizBrainMulti();
   Icon? icon;
@@ -28,31 +30,49 @@ class _MultiQScreenState extends State<MultiQScreen> {
   bool? isCorrect;
   late Timer timer;
   List<bool> scoreKeeper = [];
+  bool isButtonDisabled = false;
+  int res = 0;
   void checkAnswer(int? userChoice) {
-    int correctAnswer = quiz_multi.getQuestionAnswer();
-    print('correctAnswer $correctAnswer');
-    print("userChoice $userChoice");
-    if (correctAnswer == userChoice) {
-      scoreKeeper.add(true);
-      isCorrect = true;
+    if (userChiose == null) {
+      counter = 10;
+      quiz_multi.nextQuestion();
     } else {
-      scoreKeeper.add(false);
-      isCorrect = false;
+      int correctAnswer = quiz_multi.getQuestionAnswer();
+      if (correctAnswer == userChoice) {
+        res++;
+        scoreKeeper.add(true);
+        isCorrect = true;
+        timer_set();
+        isButtonDisabled = false;
+      } else {
+        scoreKeeper.add(false);
+        isCorrect = false;
+        timer_set();
+        isButtonDisabled = false;
+      }
+    }
+  }
+
+  void timer_set() {
+    if (counter <= 0) {
+      quiz_multi.nextQuestion();
+      counter = 10;
+      userChiose = null;
     }
   }
 
   void checkQuestion() {
     if (quiz_multi.isFinished()) {
-      timer.cancel();
       print('finished');
-      int correct = scoreKeeper.where((element) => element == true).length;
-      Timer(Duration(seconds: 1), () {
-        setState(() {
-          quiz_multi.reset();
-          scoreKeeper.clear();
-        });
-        Navigator.pop(context);
-        Navigator.pop(context);
+
+      setState(() {
+        quiz_multi.reset();
+        scoreKeeper.clear();
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    resultPage(res, quiz_multi.getquestionBankLength())));
       });
     } else {
       quiz_multi.nextQuestion();
@@ -60,20 +80,28 @@ class _MultiQScreenState extends State<MultiQScreen> {
     }
   }
 
-  void timer_set() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        currentTimer++;
-        if (currentTimer >= 10) {
-          checkAnswer(null);
-          currentTimer = 0;
-        }
-      });
-    });
-  }
+  // void timer_set() {
+  //   timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+  //     setState(() {
+  //       currentTimer++;
+  //       if (currentTimer >= 10) {
+  //         checkAnswer(-1);
+  //         currentTimer = 0;
+  //       }
+  //     });
+  //   });
+  // }
 
   @override
   void initState() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        counter--;
+      });
+      if (counter == 0) {
+        checkAnswer(null);
+      }
+    });
     super.initState();
   }
 
@@ -92,7 +120,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 74, left: 24, right: 24),
+          padding: const EdgeInsets.only(top: 60, left: 24, right: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -155,13 +183,13 @@ class _MultiQScreenState extends State<MultiQScreen> {
                         height: 56,
                         width: 56,
                         child: CircularProgressIndicator(
-                          value: 0.7,
+                          value: counter / 10,
                           color: Colors.white,
                           backgroundColor: Colors.white12,
                         ),
                       ),
                       Text(
-                        '05',
+                        "$counter",
                         style: TextStyle(
                           fontFamily: 'Sf-Pro-Text',
                           fontSize: 24,
@@ -188,7 +216,10 @@ class _MultiQScreenState extends State<MultiQScreen> {
               ),
               Expanded(
                 child: Center(
-                  child: Image.asset('assets/images/ballon-b.png'),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 12.0),
+                    child: Image.asset('assets/images/ballon-b.png'),
+                  ),
                 ),
               ),
               Text(
@@ -222,10 +253,15 @@ class _MultiQScreenState extends State<MultiQScreen> {
                       padding: const EdgeInsets.only(bottom: 12),
                       child: ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            userChiose = index;
-                            checkAnswer(index);
-                          });
+                          isButtonDisabled == false
+                              ? setState(() {
+                                  userChiose = index;
+                                  checkAnswer(index);
+                                  isButtonDisabled = true;
+                                })
+                              : () {
+                                  // Button action
+                                };
                         },
                         style: ElevatedButton.styleFrom(
                           disabledBackgroundColor: isCorrect == null
@@ -281,6 +317,8 @@ class _MultiQScreenState extends State<MultiQScreen> {
                     setState(() {
                       checkQuestion();
                       isCorrect = null;
+                      counter = 10;
+                      isButtonDisabled = false;
                     });
                   },
                   child: Text("Next"))
