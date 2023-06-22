@@ -9,7 +9,7 @@ import '../widgets/my_outline_btn.dart';
 import 'home.dart';
 
 class TrueFalseQuiz extends StatefulWidget {
-  static const routeName='level1';
+  static const routeName = 'level1';
 
   const TrueFalseQuiz({super.key});
   @override

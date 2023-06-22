@@ -17,7 +17,7 @@ class QuizBrainMulti {
   }
 
   int getquestionBankLength() {
-    return _questionBank[0].options.length;
+    return _questionBank.length;
   }
 
   int getQuestionAnswer() {
