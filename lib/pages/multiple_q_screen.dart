@@ -44,10 +44,12 @@ class _MultiQScreenState extends State<MultiQScreen> {
         scoreKeeper.add(true);
         isCorrect = true;
         timer_set();
+        isButtonDisabled = false;
       } else {
         scoreKeeper.add(false);
         isCorrect = false;
         timer_set();
+        isButtonDisabled = false;
       }
     }
   }
@@ -252,10 +254,15 @@ class _MultiQScreenState extends State<MultiQScreen> {
                       padding: const EdgeInsets.only(bottom: 12),
                       child: ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            userChiose = index;
-                            checkAnswer(index);
-                          });
+                          isButtonDisabled == false
+                              ? setState(() {
+                                  userChiose = index;
+                                  checkAnswer(index);
+                                  isButtonDisabled = true;
+                                })
+                              : () {
+                                  // Button action
+                                };
                         },
                         style: ElevatedButton.styleFrom(
                           disabledBackgroundColor: isCorrect == null
@@ -312,6 +319,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
                       checkQuestion();
                       isCorrect = null;
                       counter = 10;
+                      isButtonDisabled = false;
                     });
                   },
                   child: Text("Next"))
