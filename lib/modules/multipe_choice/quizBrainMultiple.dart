@@ -16,6 +16,10 @@ class QuizBrainMulti {
     return _questionBank[_questionNumber].questionText;
   }
 
+  int getquestionBankLength() {
+    return _questionBank[0].options.length;
+  }
+
   int getQuestionAnswer() {
     return _questionBank[_questionNumber].questionAnswer;
   }

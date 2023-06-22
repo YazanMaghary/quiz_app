@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
+
 import 'package:team_quiz_app/constants.dart';
 import 'package:team_quiz_app/modules/level.dart';
 import 'package:team_quiz_app/pages/level_describtion.dart';
 import 'package:team_quiz_app/pages/true_false_q_screen.dart';
 import 'package:team_quiz_app/widgets/my_outline_btn.dart';
 
-import '../constants.dart';
-import '../widgets/my_level_widget.dart';
-import '../widgets/my_outline_btn.dart';
-import 'level_describtion.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({
