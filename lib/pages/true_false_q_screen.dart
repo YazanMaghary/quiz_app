@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:team_quiz_app/pages/result.dart';
 
 import '../constants.dart';
 import '../modules/true_false/quizBrain.dart';
@@ -20,36 +21,50 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
   int? _choice;
 
   int counter = 10;
+  int res = 0;
 
-  void checkAnswer(bool userChoice) {
+  void checkAnswer(bool? userChoice) {
     bool correctAnswer = quizBrain.getQuestionAnswer();
-    setState(() {
-      if (correctAnswer == userChoice) {
+    if (userChoice == null) {
+      setState(() {
+        counter = 10;
         scoreKeeper.add(
-          Icon(
-            Icons.check,
-            color: Colors.green,
-          ),
-        );
-      } else {
-        scoreKeeper.add(
-          Icon(
+          const Icon(
             Icons.close,
             color: Colors.red,
           ),
         );
-      }
-    });
+      });
+    } else {
+      setState(() {
+        if (correctAnswer == userChoice) {
+          res++;
+          scoreKeeper.add(
+            const Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
+          );
+        } else {
+          scoreKeeper.add(
+            const Icon(
+              Icons.close,
+              color: Colors.red,
+            ),
+          );
+        }
+        counter = 10;
+      });
+    }
 
     if (quizBrain.isFinished()) {
-      print('finished');
-
-      Timer(Duration(seconds: 1), () {
-        // Alert(context: context, title: "Finished", desc: "you are done").show();
-        setState(() {
-          quizBrain.reset();
-          scoreKeeper.clear();
-        });
+      setState(() {
+        scoreKeeper.clear();
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    resultPage(res, quizBrain.questionsLength)));
       });
     } else {
       quizBrain.nextQuestion();
@@ -58,16 +73,13 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
 
   @override
   void initState() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         counter--;
       });
       if (counter == 0) {
-        // timer.cancel();
-        counter = 10;
-        quizBrain.nextQuestion();
+        checkAnswer(null);
       }
-      ;
     });
     super.initState();
   }

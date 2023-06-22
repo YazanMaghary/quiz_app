@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multi_quiz_s_t_tt9/pages/home.dart';
-import 'package:multi_quiz_s_t_tt9/widgets/my_outline_btn.dart';
 
 import '../constants.dart';
+import '../widgets/my_outline_btn.dart';
+import 'home.dart';
 
 class MultiQScreen extends StatefulWidget {
   const MultiQScreen({Key? key}) : super(key: key);
