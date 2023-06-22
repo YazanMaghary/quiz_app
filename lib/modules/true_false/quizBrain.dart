@@ -1,4 +1,4 @@
-import 'package:multi_quiz_s_t_tt9/modules/true_false/question.dart';
+import 'question.dart';
 
 class QuizBrain {
   int _questionNumber = 0;
