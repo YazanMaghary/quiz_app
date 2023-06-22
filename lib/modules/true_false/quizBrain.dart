@@ -1,9 +1,13 @@
+
 import 'question.dart';
+
+
+import 'package:team_quiz_app/modules/true_false/question.dart';
 
 class QuizBrain {
   int _questionNumber = 0;
 
-  final List<Question> _questionBank = [
+  final List<Question> questionBank = [
     Question(
       'You can lead a cow down stairs but not up stairs.',
       false,
@@ -19,21 +23,21 @@ class QuizBrain {
   ];
 
   String getQuestionText() {
-    return _questionBank[_questionNumber].questionText;
+    return questionBank[_questionNumber].questionText;
   }
 
   bool getQuestionAnswer() {
-    return _questionBank[_questionNumber].questionAnswer;
+    return questionBank[_questionNumber].questionAnswer;
   }
 
   void nextQuestion() {
-    if (_questionNumber < _questionBank.length - 1) {
+    if (_questionNumber < questionBank.length - 1) {
       _questionNumber++;
     }
   }
 
   bool isFinished() {
-    if (_questionNumber >= _questionBank.length - 1) {
+    if (_questionNumber >= questionBank.length - 1) {
       return true;
     } else {
       return false;
@@ -43,4 +47,6 @@ class QuizBrain {
   void reset() {
     _questionNumber = 0;
   }
+
+  int get questionsLength => questionBank.length;
 }

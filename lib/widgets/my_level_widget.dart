@@ -2,38 +2,30 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 import 'my_outline_btn.dart';
 
-class MyLevelWidget extends StatelessWidget {
-  final Function() function;
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final String image;
-  final List<Color> colors;
 
-  const MyLevelWidget({
-    Key? key,
-    required this.function,
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.image,
-    required this.colors,
-  }) : super(key: key);
+import 'package:team_quiz_app/constants.dart';
+import 'package:team_quiz_app/modules/level.dart';
+import 'package:team_quiz_app/widgets/my_outline_btn.dart';
+
+class MyLevelWidget extends StatelessWidget {
+final Function() fun;
+final Level level;
+   const MyLevelWidget({super.key, required this.fun, required this.level});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: function,
+      onTap: fun,
       child: Stack(
         alignment: Alignment.topRight,
         children: [
           Container(
             width: double.infinity,
-            margin: EdgeInsets.only(top: 54, bottom: 24),
-            padding: EdgeInsets.all(24),
+            margin: const EdgeInsets.only(top: 54, bottom: 24),
+            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: colors,
+                colors: level.colors,
               ),
               borderRadius: BorderRadius.circular(30),
             ),
@@ -44,7 +36,7 @@ class MyLevelWidget extends StatelessWidget {
                   height: 44,
                   width: 44,
                   child: MYOutlineBtn(
-                    icon: icon,
+                    icon: level.icon,
                     iconColor: Colors.white,
                     bColor: Colors.white,
                     function: () {},
@@ -53,23 +45,23 @@ class MyLevelWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Text(
-                  subtitle,
-                  style: TextStyle(
+                  level.subtitle,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white60,
                     fontFamily: kFontFamily,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 Text(
-                  title,
-                  style: TextStyle(
+                  level.title,
+                  style: const TextStyle(
                     fontSize: 32,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -81,7 +73,7 @@ class MyLevelWidget extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(right: 28.0),
-            child: Image.asset(image),
+            child: Image.asset(level.image),
           ),
         ],
       ),

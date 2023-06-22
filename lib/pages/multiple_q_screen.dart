@@ -2,12 +2,21 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+
 import '../constants.dart';
 import '../modules/multipe_choice/quizBrainMultiple.dart';
+=======
+
+import 'package:team_quiz_app/pages/home.dart';
+import 'package:team_quiz_app/widgets/my_outline_btn.dart';
+
+import '../constants.dart';
 import '../widgets/my_outline_btn.dart';
 import 'home.dart';
 
 class MultiQScreen extends StatefulWidget {
+    static const routeName='level2';
+
   const MultiQScreen({Key? key}) : super(key: key);
 
   @override
