@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:multi_quiz_s_t_tt9/constants.dart';
-import 'package:multi_quiz_s_t_tt9/pages/level_describtion.dart';
-import 'package:multi_quiz_s_t_tt9/pages/multiple_q_screen.dart';
-import 'package:multi_quiz_s_t_tt9/widgets/my_outline_btn.dart';
+import 'package:team_quiz_app/constants.dart';
+import 'package:team_quiz_app/modules/level.dart';
+import 'package:team_quiz_app/pages/level_describtion.dart';
+import 'package:team_quiz_app/pages/true_false_q_screen.dart';
+import 'package:team_quiz_app/widgets/my_outline_btn.dart';
 
 import '../widgets/my_level_widget.dart';
 
@@ -15,6 +16,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  List<Level> levels = [
+    const Level(
+        icon: Icons.check,
+        title: 'True or False',
+        subtitle: 'Level 1',
+        image: 'assets/images/bags.png',
+        colors: [kL1, kL12]),
+    const Level(
+        icon: Icons.play_arrow,
+        title: 'Multiple Choice',
+        subtitle: 'Level 2',
+        image: 'assets/images/ballon-s.png',
+        colors: [kL2, kL22]),
+  ];
+
+  void navigation(index) {
+    switch (index) {
+      case 0: Navigator.pushNamed(context, 'level1'); break;
+      case 1: Navigator.pushNamed(context, 'level2'); break;
+      default:
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,67 +62,52 @@ class _HomePageState extends State<HomePage> {
               function: () {
                 print("2222");
               }),
-          SizedBox(
+          const SizedBox(
             width: 16,
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Let\'s Play',
-                style: TextStyle(
-                  fontSize: 32,
-                  color: kRedFont,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: kFontFamily,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Let\'s Play',
+              style: TextStyle(
+                fontSize: 32,
+                color: kRedFont,
+                fontWeight: FontWeight.bold,
+                fontFamily: kFontFamily,
               ),
-              SizedBox(
-                height: 8,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            const Text(
+              'Be the First!',
+              style: TextStyle(
+                fontSize: 18,
+                color: kGreyFont,
+                fontFamily: kFontFamily,
               ),
-              Text(
-                'Be the First!',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kGreyFont,
-                  fontFamily: kFontFamily,
-                ),
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              MyLevelWidget(
-                function: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return LevelDescription();
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return MyLevelWidget(
+                      fun: () {
+                        navigation(index);
                       },
-                    ),
-                  );
+                      level: levels[index]);
                 },
-                icon: Icons.check,
-                title: 'True or False',
-                subtitle: 'Level 1',
-                image: 'assets/images/bags.png',
-                colors: [kL1, kL12],
+                itemCount: levels.length,
               ),
-              MyLevelWidget(
-                function: () {},
-                icon: Icons.play_arrow,
-                title: 'Multiple Choice',
-                subtitle: 'Level 2',
-                image: 'assets/images/ballon-s.png',
-                colors: [kL2, kL22],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
