@@ -50,14 +50,14 @@ class LevelDescription extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Center(
-                  child: Image.asset('assets/images/ballon-b.png'),
+                  child: Image.asset(assetBallonBig),
                 ),
               ),
               Text(
                 level.subtitle,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
-                  fontFamily: 'Sf-Pro-Text',
+                  fontFamily: kFontFamily,
                   color: Colors.white60,
                 ),
               ),
@@ -66,9 +66,9 @@ class LevelDescription extends StatelessWidget {
               ),
               Text(
                 level.title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 32,
-                  fontFamily: 'Sf-Pro-Text',
+                  fontFamily: kFontFamily,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
@@ -80,7 +80,7 @@ class LevelDescription extends StatelessWidget {
                 'Do you feel confident? Here you\'ll challenge one of our most difficult travel questions!',
                 style: TextStyle(
                   fontSize: 16,
-                  fontFamily: 'Sf-Pro-Text',
+                  fontFamily: kFontFamily,
                   color: Colors.white60,
                 ),
               ),

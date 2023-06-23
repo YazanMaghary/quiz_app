@@ -12,12 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const HomePage(),
-        'level1': (context) => const TrueFalseQuiz(),
-        'level2': (context) => const MultiQScreen(),
+        HomePage.routeName: (context) => const HomePage(),
+        TrueFalseQuiz.routeName: (context) => const TrueFalseQuiz(),
+        MultiQScreen.routeName: (context) => const MultiQScreen(),
       },
-      initialRoute: '/',
+      initialRoute: HomePage.routeName,
     );
   }
 }

@@ -6,7 +6,7 @@ import 'package:team_quiz_app/widgets/alert.dart';
 import 'package:team_quiz_app/widgets/quiz_header.dart';
 import 'package:team_quiz_app/widgets/score_keeper_view.dart';
 import '../constants.dart';
-import '../modules/multipe_choice/quizBrainMultiple.dart';
+import '../modules/multipe_choice/quiz_brain_multiple.dart';
 import '../widgets/choice_button.dart';
 
 class MultiQScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class MultiQScreen extends StatefulWidget {
 }
 
 class _MultiQScreenState extends State<MultiQScreen> {
-  QuizBrainMulti quiz_multi = QuizBrainMulti();
+  QuizBrainMulti quizMulti = QuizBrainMulti();
 
   int? userChoice;
   int counter = 10;
@@ -35,7 +35,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
 
   void reset() {
     scoreKeeper.clear();
-    quiz_multi.reset();
+    quizMulti.reset();
     reSetNextQuestionVariables();
     startTimer();
     correctResult = 0;
@@ -49,7 +49,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
   }
 
   void checkAnswer() {
-    int correctAnswer = quiz_multi.getQuestionAnswer();
+    int correctAnswer = quizMulti.getQuestionAnswer();
     if (userChoice == null || correctAnswer != userChoice) {
       scoreKeeper.add(false);
       isCorrect = false;
@@ -60,7 +60,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
     }
     if (counter <= 0) {
       reSetNextQuestionVariables();
-      quiz_multi.nextQuestion();
+      quizMulti.nextQuestion();
     }
   }
 
@@ -81,7 +81,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
       return Colors.white;
     } else {
       if (isCorrect! && userChoice == index) {
-        return Colors.lightGreen;
+        return kG1;
       } else if (userChoice == index) {
         return Colors.red;
       } else {
@@ -91,7 +91,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
   }
 
   void goToNext(BuildContext context) {
-    if (quiz_multi.isFinished()) {
+    if (quizMulti.isFinished()) {
       showResult(context);
     } else {
       // if _isUserTapChoice false then its mean that checkAnswer() is not performed because the user does not tap on choice
@@ -100,7 +100,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
         checkAnswer();
       }
       reSetNextQuestionVariables();
-      quiz_multi.nextQuestion();
+      quizMulti.nextQuestion();
       // isCorrect = null;
     }
   }
@@ -153,15 +153,15 @@ class _MultiQScreenState extends State<MultiQScreen> {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 12.0),
-                    child: Image.asset('assets/images/ballon-b.png'),
+                    child: Image.asset(assetBallonBig),
                   ),
                 ),
               ),
               Text(
-                'question ${quiz_multi.questionNumber} of ${quiz_multi.getQuestionBankLength()}',
+                'question ${quizMulti.questionNumber+1} of ${quizMulti.getQuestionBankLength()}',
                 style: const TextStyle(
                   fontSize: 18,
-                  fontFamily: 'Sf-Pro-Text',
+                  fontFamily: kFontFamily,
                   color: Colors.white60,
                 ),
               ),
@@ -169,10 +169,10 @@ class _MultiQScreenState extends State<MultiQScreen> {
                 height: 8,
               ),
               Text(
-                quiz_multi.getQuestionText(),
+                quizMulti.getQuestionText(),
                 style: const TextStyle(
                   fontSize: 32,
-                  fontFamily: 'Sf-Pro-Text',
+                  fontFamily: kFontFamily,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
@@ -182,10 +182,10 @@ class _MultiQScreenState extends State<MultiQScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: quiz_multi.getOptions().length,
+                  itemCount: quizMulti.getOptions().length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: EdgeInsets.only(bottom: 12),
+                      padding: const EdgeInsets.only(bottom: 12),
                       child: ChoiceButton(
                         onTap: !_isUserTapChoice
                             ? () {
@@ -197,7 +197,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
                         isUserTap: _isUserTapChoice,
                         isCorrect: (isCorrect ?? false) && userChoice == index,
                         disabledBackgroundColor: disabledBackgroundColor(index),
-                        body: quiz_multi.getOptions()[index],
+                        body: quizMulti.getOptions()[index],
                       ),
                     );
                   },

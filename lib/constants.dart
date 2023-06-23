@@ -13,3 +13,7 @@ const kBlueBg = Color(0xff3293f4);
 const kG1 = Color(0xffb5bd05);
 
 const kFontFamily = 'Sf-Pro-Text';
+const assetSource = 'assets/images/';
+const assetBallonSmall = '${assetSource}ballon-s.png';
+const assetBallonBig = '${assetSource}ballon-b.png';
+const assetBags = '${assetSource}bags.png';

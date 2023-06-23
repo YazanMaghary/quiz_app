@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -5,10 +7,9 @@ import 'package:team_quiz_app/widgets/quiz_header.dart';
 import 'package:team_quiz_app/widgets/score_keeper_view.dart';
 
 import '../constants.dart';
-import '../modules/true_false/quizBrain.dart';
+import '../modules/true_false/quiz_brain.dart';
 import '../widgets/alert.dart';
 
-import '../widgets/my_outline_btn.dart';
 import 'home.dart';
 
 class TrueFalseQuiz extends StatefulWidget {
@@ -16,10 +17,10 @@ class TrueFalseQuiz extends StatefulWidget {
 
   const TrueFalseQuiz({super.key});
   @override
-  _TrueFalseQuizState createState() => _TrueFalseQuizState();
+  TrueFalseQuizState createState() => TrueFalseQuizState();
 }
 
-class _TrueFalseQuizState extends State<TrueFalseQuiz> {
+class TrueFalseQuizState extends State<TrueFalseQuiz> {
   QuizBrain quizBrain = QuizBrain();
 
   List<bool> scoreKeeper = [];
@@ -76,7 +77,7 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         counter--;
         if (counter == 0) {
@@ -164,7 +165,7 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
                   padding: const EdgeInsets.all(15.0),
                   child: ElevatedButton(
                     style: const ButtonStyle().copyWith(
-                      backgroundColor: MaterialStatePropertyAll(Colors.red),
+                      backgroundColor: const MaterialStatePropertyAll(Colors.red),
                     ),
                     child: const Text(
                       'False',
