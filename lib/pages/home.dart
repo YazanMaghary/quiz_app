@@ -4,6 +4,7 @@ import 'package:team_quiz_app/modules/level.dart';
 import 'package:team_quiz_app/widgets/my_outline_btn.dart';
 
 import '../widgets/my_level_widget.dart';
+import 'level_describtion.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -30,22 +31,27 @@ class _HomePageState extends State<HomePage> {
   ];
 
   void navigation(index) {
-          
     switch (index) {
-      case 0: 
-      Navigator.push(context,MaterialPageRoute(builder: (_)=>LevelDescription(level: 
-          levels[0]
-          , onTap: (){
-            Navigator.pushNamed(context, 'level1');
-          })));
-       break;
-      case 1: 
-      Navigator.push(context,MaterialPageRoute(builder: (_)=>LevelDescription(level: 
-          levels[1]
-          , onTap: (){
-            Navigator.pushNamed(context, 'level2');
-          })));
-       break;
+      case 0:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => LevelDescription(
+                    level: levels[0],
+                    onTap: () {
+                      Navigator.pushNamed(context, 'level1');
+                    })));
+        break;
+      case 1:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => LevelDescription(
+                    level: levels[1],
+                    onTap: () {
+                      Navigator.pushNamed(context, 'level2');
+                    })));
+        break;
       default:
     }
   }
@@ -58,6 +64,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         actions: [
           MYOutlineBtn(
+            padding: EdgeInsets.symmetric(vertical: 4),
             icon: Icons.favorite,
             iconColor: kBlueIcon,
             bColor: kGreyFont.withOpacity(0.5),
@@ -66,6 +73,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           MYOutlineBtn(
+              padding: EdgeInsets.symmetric(vertical: 4),
               icon: Icons.person,
               iconColor: kBlueIcon,
               bColor: kGreyFont.withOpacity(0.5),

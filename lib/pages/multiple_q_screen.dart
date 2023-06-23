@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:team_quiz_app/pages/result.dart';
-import 'package:team_quiz_app/pages/home.dart';
-import 'package:team_quiz_app/pages/home.dart';
-import 'package:team_quiz_app/widgets/my_outline_btn.dart';
+
+import 'package:team_quiz_app/widgets/alert.dart';
+import 'package:team_quiz_app/widgets/quiz_header.dart';
+import 'package:team_quiz_app/widgets/score_keeper_view.dart';
 import '../constants.dart';
 import '../modules/multipe_choice/quizBrainMultiple.dart';
+import '../widgets/choice_button.dart';
 
 class MultiQScreen extends StatefulWidget {
   static const routeName = 'level2';
@@ -18,98 +19,121 @@ class MultiQScreen extends StatefulWidget {
 }
 
 class _MultiQScreenState extends State<MultiQScreen> {
-  var questionNumber = 5;
-  var questionsCount = 10;
-  int? userChiose;
-  int counter = 10;
-  int? choise;
   QuizBrainMulti quiz_multi = QuizBrainMulti();
-  Icon? icon;
-  int maxWaiting = 10;
-  int currentTimer = 1;
+
+  int? userChoice;
+  int counter = 10;
   bool? isCorrect;
   late Timer timer;
   List<bool> scoreKeeper = [];
-  bool isButtonDisabled = false;
-  int res = 0;
-  void checkAnswer(int? userChoice) {
-    if (userChiose == null) {
-      counter = 10;
-      quiz_multi.nextQuestion();
+  bool _isUserTapChoice = false;
+  int correctResult = 0;
+
+  void setIsUserTapChoice(bool value) {
+    _isUserTapChoice = value;
+  }
+
+  void reset() {
+    scoreKeeper.clear();
+    quiz_multi.reset();
+    reSetNextQuestionVariables();
+    startTimer();
+    correctResult = 0;
+  }
+
+  void reSetNextQuestionVariables() {
+    setIsUserTapChoice(false);
+    counter = 10;
+    userChoice = null;
+    isCorrect = null;
+  }
+
+  void checkAnswer() {
+    int correctAnswer = quiz_multi.getQuestionAnswer();
+    if (userChoice == null || correctAnswer != userChoice) {
+      scoreKeeper.add(false);
+      isCorrect = false;
     } else {
-      int correctAnswer = quiz_multi.getQuestionAnswer();
-      if (correctAnswer == userChoice) {
-        res++;
-        scoreKeeper.add(true);
-        isCorrect = true;
-        timer_set();
-        isButtonDisabled = false;
+      correctResult++;
+      scoreKeeper.add(true);
+      isCorrect = true;
+    }
+    if (counter <= 0) {
+      reSetNextQuestionVariables();
+      quiz_multi.nextQuestion();
+    }
+  }
+
+  void showResult(BuildContext context) {
+    timer.cancel();
+    showAlert(
+        context: context,
+        correctResult: correctResult,
+        total: scoreKeeper.length,
+        onTapRestart: () {
+          reset();
+          Navigator.pop(context);
+        });
+  }
+
+  Color disabledBackgroundColor(int index) {
+    if (isCorrect == null) {
+      return Colors.white;
+    } else {
+      if (isCorrect! && userChoice == index) {
+        return Colors.lightGreen;
+      } else if (userChoice == index) {
+        return Colors.red;
       } else {
-        scoreKeeper.add(false);
-        isCorrect = false;
-        timer_set();
-        isButtonDisabled = false;
+        return Colors.grey;
       }
     }
   }
 
-  void timer_set() {
-    if (counter <= 0) {
-      quiz_multi.nextQuestion();
-      counter = 10;
-      userChiose = null;
-    }
-  }
-
-  void checkQuestion() {
+  void goToNext(BuildContext context) {
     if (quiz_multi.isFinished()) {
-      print('finished');
-
-      setState(() {
-        quiz_multi.reset();
-        scoreKeeper.clear();
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    resultPage(res, quiz_multi.getquestionBankLength())));
-      });
+      showResult(context);
     } else {
+      // if _isUserTapChoice false then its mean that checkAnswer() is not performed because the user does not tap on choice
+
+      if (_isUserTapChoice == false) {
+        checkAnswer();
+      }
+      reSetNextQuestionVariables();
       quiz_multi.nextQuestion();
       // isCorrect = null;
     }
   }
 
-  // void timer_set() {
-  //   timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-  //     setState(() {
-  //       currentTimer++;
-  //       if (currentTimer >= 10) {
-  //         checkAnswer(-1);
-  //         currentTimer = 0;
-  //       }
-  //     });
-  //   });
-  // }
-
-  @override
-  void initState() {
+  void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         counter--;
+        if (counter == 0) {
+          userChoice = null;
+          goToNext(context);
+        }
       });
-      if (counter == 0) {
-        checkAnswer(null);
-      }
     });
+  }
+
+  @override
+  void initState() {
+    startTimer();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               kBlueBg,
@@ -124,96 +148,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: 44,
-                    width: 44,
-                    child: MYOutlineBtn(
-                      icon: Icons.close,
-                      iconColor: Colors.white,
-                      bColor: Colors.white,
-                      function: () {
-                        // Navigator.pop(context);
-                        // Navigator.pop(context);
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomePage(),
-                          ),
-                          (route) => false,
-                        );
-                      },
-                    ),
-                  ),
-                  // OutlinedButton(
-                  //   onPressed: () {},
-                  //   style: ButtonStyle().copyWith(
-                  //     shape: MaterialStatePropertyAll(
-                  //       RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(25),
-                  //       ),
-                  //     ),
-                  //     side: MaterialStatePropertyAll(
-                  //       BorderSide(color: Colors.white),
-                  //     ),
-                  //   ),
-                  //   child: Row(
-                  //     children: [
-                  //       Icon(
-                  //         Icons.favorite,
-                  //         color: Colors.white,
-                  //       ),
-                  //       SizedBox(
-                  //         width: 8,
-                  //       ),
-                  //       const Text(
-                  //         '3',
-                  //         style: TextStyle(color: Colors.white),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        height: 56,
-                        width: 56,
-                        child: CircularProgressIndicator(
-                          value: counter / 10,
-                          color: Colors.white,
-                          backgroundColor: Colors.white12,
-                        ),
-                      ),
-                      Text(
-                        "$counter",
-                        style: TextStyle(
-                          fontFamily: 'Sf-Pro-Text',
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-
-                  OutlinedButton(
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.favorite,
-                      color: Colors.white,
-                    ),
-                    style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        side: BorderSide(color: Colors.white)),
-                  )
-                ],
-              ),
+              QuizHeader(counter: counter),
               Expanded(
                 child: Center(
                   child: Padding(
@@ -223,26 +158,26 @@ class _MultiQScreenState extends State<MultiQScreen> {
                 ),
               ),
               Text(
-                'question $questionNumber of $questionsCount',
-                style: TextStyle(
+                'question ${quiz_multi.questionNumber} of ${quiz_multi.getQuestionBankLength()}',
+                style: const TextStyle(
                   fontSize: 18,
                   fontFamily: 'Sf-Pro-Text',
                   color: Colors.white60,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Text(
                 quiz_multi.getQuestionText(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 32,
                   fontFamily: 'Sf-Pro-Text',
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 48,
               ),
               Expanded(
@@ -250,82 +185,48 @@ class _MultiQScreenState extends State<MultiQScreen> {
                   itemCount: quiz_multi.getOptions().length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          isButtonDisabled == false
-                              ? setState(() {
-                                  userChiose = index;
-                                  checkAnswer(index);
-                                  isButtonDisabled = true;
-                                })
-                              : () {
-                                  // Button action
-                                };
-                        },
-                        style: ElevatedButton.styleFrom(
-                          disabledBackgroundColor: isCorrect == null
-                              ? Colors.white
-                              : isCorrect! && userChiose == index
-                                  ? Colors.lightGreen
-                                  : userChiose == index
-                                      ? Colors.red
-                                      : Colors.white,
-                          backgroundColor: isCorrect == null
-                              ? Colors.white
-                              : isCorrect! && userChiose == index
-                                  ? Colors.lightGreen
-                                  : userChiose == index
-                                      ? Colors.red
-                                      : Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 16),
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 24,
-                            ),
-                            Expanded(
-                              child: Center(
-                                child: Text(
-                                  quiz_multi.getOptions()[index],
-                                  style: TextStyle(
-                                      color: kL2,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18),
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.check_rounded,
-                              color: kL2,
-                            ),
-                          ],
-                        ),
+                      padding: EdgeInsets.only(bottom: 12),
+                      child: ChoiceButton(
+                        onTap: !_isUserTapChoice
+                            ? () {
+                                setState(() {
+                                  selectChoice(index);
+                                });
+                              }
+                            : null,
+                        isUserTap: _isUserTapChoice,
+                        isCorrect: (isCorrect ?? false) && userChoice == index,
+                        disabledBackgroundColor: disabledBackgroundColor(index),
+                        body: quiz_multi.getOptions()[index],
                       ),
                     );
                   },
                 ),
               ),
-              ElevatedButton(
+              TextButton(
                   onPressed: () {
-                    // checkAnswer(choise);
                     setState(() {
-                      checkQuestion();
+                      goToNext(context);
                       isCorrect = null;
                       counter = 10;
-                      isButtonDisabled = false;
+                      // isButtonDisabled = false;
                     });
                   },
-                  child: Text("Next"))
+                  child: const Text(
+                    "Next",
+                    style: TextStyle(color: Colors.white),
+                  )),
+              ScoreKeeperView(scoreKeeper: scoreKeeper),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void selectChoice(int index) {
+    userChoice = index;
+    checkAnswer();
+    _isUserTapChoice = true;
   }
 }

@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 import 'my_outline_btn.dart';
 
-
-import 'package:team_quiz_app/constants.dart';
 import 'package:team_quiz_app/modules/level.dart';
-import 'package:team_quiz_app/widgets/my_outline_btn.dart';
 
 class MyLevelWidget extends StatelessWidget {
-final Function() fun;
-final Level level;
-   const MyLevelWidget({super.key, required this.fun, required this.level});
+  final Function() fun;
+  final Level level;
+  const MyLevelWidget({super.key, required this.fun, required this.level});
 
   @override
   Widget build(BuildContext context) {
