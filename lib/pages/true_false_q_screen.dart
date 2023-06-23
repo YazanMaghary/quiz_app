@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:team_quiz_app/widgets/quiz_header.dart';
 import 'package:team_quiz_app/widgets/score_keeper_view.dart';
 
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:team_quiz_app/pages/result.dart';
 import '../constants.dart';
 import '../modules/true_false/quizBrain.dart';
 import '../widgets/alert.dart';
+
+import '../widgets/my_outline_btn.dart';
 import 'home.dart';
 
 class TrueFalseQuiz extends StatefulWidget {
@@ -178,6 +182,7 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
                   ),
                 ),
               ),
+ refactorig_main_true_false_multi
               ScoreKeeperView(scoreKeeper: scoreKeeper),
               const SizedBox(
                 height: 72,
