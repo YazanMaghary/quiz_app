@@ -3,6 +3,7 @@ import 'package:team_quiz_app/modules/multipe_choice/questionMultiple.dart';
 class QuizBrainMulti {
   int _questionNumber = 0;
 
+  int get questionNumber => _questionNumber;
   final List<QuestionMultiple> _questionBank = [
     QuestionMultiple('You can lead a cow down stairs but not up stairs.', 1,
         ['always', 'never', 'sometimes']),
@@ -16,7 +17,7 @@ class QuizBrainMulti {
     return _questionBank[_questionNumber].questionText;
   }
 
-  int getquestionBankLength() {
+  int getQuestionBankLength() {
     return _questionBank.length;
   }
 

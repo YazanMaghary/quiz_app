@@ -6,31 +6,35 @@ class MYOutlineBtn extends StatelessWidget {
   final Color iconColor;
   final OutlinedBorder shapeBorder;
   final Function() function;
+  final EdgeInsets padding;
   const MYOutlineBtn({
     Key? key,
     required this.icon,
     required this.function,
     required this.bColor,
     required this.iconColor,
-    this.shapeBorder = const CircleBorder(),
+    this.shapeBorder = const CircleBorder(),  this.padding=EdgeInsets.zero,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: function,
-      child: Icon(
-        icon,
-        color: iconColor,
+    return Padding(
+      padding: padding,
+      child: OutlinedButton(
+        onPressed: function,
+        child: Icon(
+          icon,
+          color: iconColor,
+        ),
+        style: ButtonStyle().copyWith(
+            shape: MaterialStatePropertyAll(
+              shapeBorder,
+            ),
+            side: MaterialStatePropertyAll(
+              BorderSide(color: bColor),
+            ),
+            padding: MaterialStatePropertyAll(EdgeInsets.all(8))),
       ),
-      style: ButtonStyle().copyWith(
-          shape: MaterialStatePropertyAll(
-            shapeBorder,
-          ),
-          side: MaterialStatePropertyAll(
-            BorderSide(color: bColor),
-          ),
-          padding: MaterialStatePropertyAll(EdgeInsets.all(8))),
     );
   }
 }

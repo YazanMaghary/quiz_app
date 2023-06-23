@@ -1,30 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:team_quiz_app/modules/level.dart';
 
-
-
 import '../constants.dart';
-import '../widgets/my_outline_btn.dart';
-import 'multiple_q_screen.dart';
-import 'true_false_q_screen.dart';
-
-import 'package:team_quiz_app/pages/true_false_q_screen.dart';
-
-import '../constants.dart';
-import '../widgets/my_outline_btn.dart';
-
 
 class LevelDescription extends StatelessWidget {
   const LevelDescription({Key? key, required this.level, required this.onTap})
       : super(key: key);
   final Level level;
   final VoidCallback onTap;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration:  BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: level.colors,
             begin: Alignment.topCenter,
@@ -64,7 +53,7 @@ class LevelDescription extends StatelessWidget {
                   child: Image.asset('assets/images/ballon-b.png'),
                 ),
               ),
-               Text(
+              Text(
                 level.subtitle,
                 style: TextStyle(
                   fontSize: 18,

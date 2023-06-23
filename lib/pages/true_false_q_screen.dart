@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:team_quiz_app/widgets/quiz_header.dart';
+import 'package:team_quiz_app/widgets/score_keeper_view.dart';
+
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:team_quiz_app/pages/result.dart';
-
 import '../constants.dart';
 import '../modules/true_false/quizBrain.dart';
 import '../widgets/alert.dart';
+
 import '../widgets/my_outline_btn.dart';
 import 'home.dart';
 
@@ -118,55 +121,8 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: 44,
-                    width: 44,
-                    child: MYOutlineBtn(
-                      icon: Icons.close,
-                      iconColor: Colors.white,
-                      bColor: Colors.white,
-                      function: popToHome,
-                    ),
-                  ),
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        height: 56,
-                        width: 56,
-                        child: CircularProgressIndicator(
-                          value: counter / 10,
-                          color: Colors.white,
-                          backgroundColor: Colors.white12,
-                        ),
-                      ),
-                      Text(
-                        counter.toString(),
-                        style: const TextStyle(
-                          fontFamily: 'Sf-Pro-Text',
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                  OutlinedButton(
-                    onPressed: () {},
-                    child: const Icon(
-                      Icons.favorite,
-                      color: Colors.white,
-                    ),
-                    style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        side: const BorderSide(color: Colors.white)),
-                  )
-                ],
+              QuizHeader(
+                counter: counter,
               ),
               Expanded(
                 flex: 5,
@@ -226,18 +182,8 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
                   ),
                 ),
               ),
-              Wrap(
-                  children: scoreKeeper
-                      .map((e) => e
-                          ? const Icon(
-                              Icons.check,
-                              color: Colors.green,
-                            )
-                          : const Icon(
-                              Icons.close,
-                              color: Colors.red,
-                            ))
-                      .toList()),
+ refactorig_main_true_false_multi
+              ScoreKeeperView(scoreKeeper: scoreKeeper),
               const SizedBox(
                 height: 72,
               )

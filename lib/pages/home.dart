@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         actions: [
           MYOutlineBtn(
+            padding: EdgeInsets.symmetric(vertical: 4),
             icon: Icons.favorite,
             iconColor: kBlueIcon,
             bColor: kGreyFont.withOpacity(0.5),
@@ -72,6 +73,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           MYOutlineBtn(
+              padding: EdgeInsets.symmetric(vertical: 4),
               icon: Icons.person,
               iconColor: kBlueIcon,
               bColor: kGreyFont.withOpacity(0.5),
