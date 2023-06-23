@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:team_quiz_app/pages/result.dart';
 
 import '../constants.dart';
 import '../modules/true_false/quizBrain.dart';
+import '../widgets/alert.dart';
 import '../widgets/my_outline_btn.dart';
 import 'home.dart';
 
@@ -19,76 +21,80 @@ class TrueFalseQuiz extends StatefulWidget {
 class _TrueFalseQuizState extends State<TrueFalseQuiz> {
   QuizBrain quizBrain = QuizBrain();
 
-  List<Icon> scoreKeeper = [];
-
-  int? _choice;
+  List<bool> scoreKeeper = [];
 
   int counter = 10;
-  int res = 0;
+  int correctResult = 0;
+  late Timer timer;
+  void addToScoreKeeper(bool isResultCorrect) {
+    scoreKeeper.add(isResultCorrect);
+    if (isResultCorrect) correctResult++;
+  }
 
-  void checkAnswer(bool? userChoice) {
+  void reset() {
+    scoreKeeper.clear();
+    quizBrain.reset();
+    startTimer();
+    counter = 10;
+    correctResult = 0;
+  }
+
+  void popToHome() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+      (route) => false,
+    );
+  }
+
+  void checkAnswer(
+    BuildContext context,
+    bool? userChoice,
+  ) {
     bool correctAnswer = quizBrain.getQuestionAnswer();
-    if (userChoice == null) {
-      setState(() {
-        counter = 10;
-        scoreKeeper.add(
-          const Icon(
-            Icons.close,
-            color: Colors.red,
-          ),
-        );
-      });
-    } else {
-      setState(() {
-        if (correctAnswer == userChoice) {
-          res++;
-          scoreKeeper.add(
-            const Icon(
-              Icons.check,
-              color: Colors.green,
-            ),
-          );
-        } else {
-          scoreKeeper.add(
-            const Icon(
-              Icons.close,
-              color: Colors.red,
-            ),
-          );
-        }
-        counter = 10;
-      });
-    }
-
+    addToScoreKeeper(correctAnswer == userChoice);
     if (quizBrain.isFinished()) {
       setState(() {
-        scoreKeeper.clear();
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    resultPage(res, quizBrain.questionsLength)));
+        timer.cancel();
+
+        showAlert(
+            context: context,
+            correctResult: correctResult,
+            total: scoreKeeper.length,
+            onTapRestart: () {
+              Navigator.pop(context);
+              reset();
+            });
       });
     } else {
       quizBrain.nextQuestion();
+      counter = 10;
     }
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      setState(() {
+        counter--;
+        if (counter == 0) {
+          checkAnswer(context, null);
+        }
+      });
+      print(counter);
+    });
   }
 
   @override
   void initState() {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        counter--;
-      });
-      if (counter == 0) {
-        checkAnswer(null);
-      }
-    });
+    startTimer();
     super.initState();
   }
 
   @override
   void dispose() {
+    timer.cancel();
     super.dispose();
   }
 
@@ -96,7 +102,7 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               kBlueBg,
@@ -122,18 +128,7 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
                       icon: Icons.close,
                       iconColor: Colors.white,
                       bColor: Colors.white,
-                      function: () {
-                        // Navigator.pop(context);
-                        // Navigator.pop(context);
-
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomePage(),
-                          ),
-                          (route) => false,
-                        );
-                      },
+                      function: popToHome,
                     ),
                   ),
                   Stack(
@@ -150,7 +145,7 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
                       ),
                       Text(
                         counter.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Sf-Pro-Text',
                           fontSize: 24,
                           color: Colors.white,
@@ -161,7 +156,7 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
                   ),
                   OutlinedButton(
                     onPressed: () {},
-                    child: Icon(
+                    child: const Icon(
                       Icons.favorite,
                       color: Colors.white,
                     ),
@@ -169,19 +164,19 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         ),
-                        side: BorderSide(color: Colors.white)),
+                        side: const BorderSide(color: Colors.white)),
                   )
                 ],
               ),
               Expanded(
                 flex: 5,
                 child: Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Center(
                     child: Text(
                       quizBrain.getQuestionText(),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 25.0,
                         color: Colors.white,
                       ),
@@ -191,12 +186,12 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: ElevatedButton(
-                    style: ButtonStyle(
+                    style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.green),
                     ),
-                    child: Text(
+                    child: const Text(
                       'True',
                       style: TextStyle(
                         color: Colors.white,
@@ -205,19 +200,19 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
                     ),
                     onPressed: () {
                       //The user picked true.
-                      checkAnswer(true);
+                      checkAnswer(context, true);
                     },
                   ),
                 ),
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: ElevatedButton(
-                    style: ButtonStyle().copyWith(
+                    style: const ButtonStyle().copyWith(
                       backgroundColor: MaterialStatePropertyAll(Colors.red),
                     ),
-                    child: Text(
+                    child: const Text(
                       'False',
                       style: TextStyle(
                         fontSize: 20.0,
@@ -226,15 +221,24 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
                     ),
                     onPressed: () {
                       //The user picked false.
-                      checkAnswer(false);
+                      checkAnswer(context, false);
                     },
                   ),
                 ),
               ),
               Wrap(
-                children: scoreKeeper,
-              ),
-              SizedBox(
+                  children: scoreKeeper
+                      .map((e) => e
+                          ? const Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            )
+                          : const Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            ))
+                      .toList()),
+              const SizedBox(
                 height: 72,
               )
             ],
