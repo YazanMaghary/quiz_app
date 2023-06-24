@@ -158,7 +158,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
                 ),
               ),
               Text(
-                'question ${quizMulti.questionNumber+1} of ${quizMulti.getQuestionBankLength()}',
+                'question ${quizMulti.questionNumber + 1} of ${quizMulti.getQuestionBankLength()}',
                 style: const TextStyle(
                   fontSize: 18,
                   fontFamily: kFontFamily,
