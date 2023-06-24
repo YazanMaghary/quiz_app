@@ -22,18 +22,18 @@ class MYOutlineBtn extends StatelessWidget {
       padding: padding,
       child: OutlinedButton(
         onPressed: function,
-        child: Icon(
-          icon,
-          color: iconColor,
-        ),
-        style: ButtonStyle().copyWith(
+        style: const ButtonStyle().copyWith(
             shape: MaterialStatePropertyAll(
               shapeBorder,
             ),
             side: MaterialStatePropertyAll(
               BorderSide(color: bColor),
             ),
-            padding: MaterialStatePropertyAll(EdgeInsets.all(8))),
+            padding: const MaterialStatePropertyAll(EdgeInsets.all(8))),
+        child: Icon(
+          icon,
+          color: iconColor,
+        ),
       ),
     );
   }

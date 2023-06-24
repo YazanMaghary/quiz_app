@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -11,7 +12,7 @@ Future showAlert(
       context: context,
       title: "Finished",
       desc: resultMessage(correctResult, total),
-      style: AlertStyle(animationType: AnimationType.fromLeft),
+      style: const AlertStyle(animationType: AnimationType.fromLeft),
       closeFunction: () {
         popToLevelDescription(context);
       },
@@ -27,13 +28,13 @@ Future showAlert(
               popToLevelDescription(context);
             }),
         DialogButton(
+            onPressed: onTapRestart,
             child: const Text(
               "Restart",
               style: TextStyle(
                 color: Colors.white,
               ),
-            ),
-            onPressed: onTapRestart),
+            )),
       ]).show();
 }
 
