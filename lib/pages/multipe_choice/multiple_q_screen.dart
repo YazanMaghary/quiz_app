@@ -2,16 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:team_quiz_app/widgets/alert.dart';
-import 'package:team_quiz_app/widgets/quiz_header.dart';
-import 'package:team_quiz_app/widgets/score_keeper_view.dart';
-import '../constants.dart';
-import '../modules/multipe_choice/quiz_brain_multiple.dart';
-import '../widgets/choice_button.dart';
+import 'package:team_quiz_app/shared/widgets/alert.dart';
+import 'package:team_quiz_app/shared/widgets/quiz_header.dart';
+import 'package:team_quiz_app/shared/widgets/score_keeper_view.dart';
+import '../../shared/resources/assets.dart';
+import '../../shared/resources/colors.dart';
+import '../../shared/resources/fonts.dart';
+import '../../shared/widgets/choice_button.dart';
+import 'quiz_brain_multiple.dart';
 
 class MultiQScreen extends StatefulWidget {
-  static const routeName = 'level2';
-
   const MultiQScreen({Key? key}) : super(key: key);
 
   @override
@@ -85,7 +85,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
       } else if (userChoice == index) {
         return Colors.red;
       } else {
-        return Colors.grey;
+        return Colors.white60;
       }
     }
   }

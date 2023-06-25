@@ -1,4 +1,4 @@
-import 'question.dart';
+import '../../modules/question.dart';
 
 class QuizBrain {
   int _questionNumber = 0;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:team_quiz_app/pages/home.dart';
-import 'package:team_quiz_app/widgets/fadeBuilder.dart';
-import 'package:team_quiz_app/widgets/my_outline_btn.dart';
+
+import '../../routing/routes.dart';
+import 'fade_builder.dart';
+import 'my_outline_btn.dart';
 
 class QuizHeader extends StatelessWidget {
   const QuizHeader({
@@ -24,15 +26,13 @@ class QuizHeader extends StatelessWidget {
             iconColor: Colors.white,
             bColor: Colors.white,
             function: () {
+              Navigator.pop(context);
               // Navigator.pop(context);
-              // Navigator.pop(context);
-              Navigator.pushAndRemoveUntil(
-                context,
-                FadeRouteBuilder(
-                  page: const HomePage(),
-                ),
-                (route) => false,
-              );
+              // Navigator.pushNamedAndRemoveUntil(
+              //   context,
+              //   Routes.homePage,
+              //   (route) => false,
+              // );
             },
           ),
         ),

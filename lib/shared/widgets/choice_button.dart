@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../resources/colors.dart';
 
 class ChoiceButton extends StatelessWidget {
   const ChoiceButton(
@@ -55,7 +55,6 @@ class ChoiceButton extends StatelessWidget {
               Icons.check_rounded,
               color: Colors.white,
             ),
-         
         ],
       ),
     );

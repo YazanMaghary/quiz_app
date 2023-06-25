@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+import '../../routing/routes.dart';
+
 Future showAlert(
     {required BuildContext context,
     required int correctResult,
@@ -39,8 +41,11 @@ Future showAlert(
 }
 
 void popToLevelDescription(BuildContext context) {
-  Navigator.pop(context);
-  Navigator.pop(context);
+  Navigator.pushNamedAndRemoveUntil(
+    context,
+    Routes.homePage,
+    (route) => false,
+  );
 }
 
 String resultMessage(int mark, int totalMark) {

@@ -1,23 +1,19 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:team_quiz_app/constants.dart';
+import 'package:team_quiz_app/shared/resources/colors.dart';
 import 'package:team_quiz_app/modules/level.dart';
-import 'package:team_quiz_app/pages/multiple_q_screen.dart';
-import 'package:team_quiz_app/pages/true_false_q_screen.dart';
-import 'package:team_quiz_app/widgets/fadeBuilderRoute.dart';
-import 'package:team_quiz_app/widgets/my_outline_btn.dart';
 
-import '../widgets/fadeBuilder.dart';
-import '../widgets/my_level_widget.dart';
-import 'level_describtion.dart';
+import '../routing/routes.dart';
+import '../shared/resources/assets.dart';
+import '../shared/widgets/app_bar.dart';
+import '../shared/widgets/my_level_widget.dart';
 
 class HomePage extends StatefulWidget {
-  static const routeName = 'HomePage';
-
   const HomePage({
     super.key,
   });
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -25,120 +21,83 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Level> levels = [
     const Level(
-        icon: Icons.check,
-        title: 'True or False',
-        subtitle: 'Level 1',
-        image: assetBags,
-        colors: [kL1, kL12]),
+      icon: Icons.check,
+      title: 'True or False',
+      subtitle: 'Level 1',
+      image: assetBags,
+      colors: [kL1, kL12],
+      route: Routes.trueOrFalse,
+    ),
     const Level(
-        icon: Icons.play_arrow,
-        title: 'Multiple Choice',
-        subtitle: 'Level 2',
-        image: assetBallonSmall,
-        colors: [kL2, kL22]),
+      icon: Icons.play_arrow,
+      title: 'Multiple Choice',
+      subtitle: 'Level 2',
+      image: assetBallonSmall,
+      colors: [kL2, kL22],
+      route: Routes.multiple,
+    ),
   ];
+  List<MyLevelWidget> levelWidgets = [];
+  final GlobalKey<AnimatedListState> _key = GlobalKey<AnimatedListState>();
 
-  void navigation(index) {
-    switch (index) {
-      case 0:
-        Navigator.push(
-            context,
-            FadeRouteBuilder(
-                page: LevelDescription(
-                    level: levels[0],
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          FadeRouteBuilder2(
-                              routeName: TrueFalseQuiz.routeName));
-                    })));
-        break;
-      case 1:
-        Navigator.push(
-            context,
-            FadeRouteBuilder(
-                page: LevelDescription(
-                    level: levels[1],
-                    onTap: () {
-                      Navigator.push(context,
-                          FadeRouteBuilder2(routeName: MultiQScreen.routeName));
-                    })));
-        break;
-      default:
+  void addToWidgets() {
+    for (int i = 0; i < levels.length; i++) {
+      levelWidgets.add(MyLevelWidget(
+          fun: () {
+            Navigator.pushNamed(context, Routes.levelDescription,
+                arguments: levels[i]);
+          },
+          level: levels[i]));
+      _key.currentState?.insertItem(
+        i,
+      );
     }
+  }
+
+  Tween<Offset> myOffset =
+      Tween<Offset>(begin: Offset(0, -1), end: Offset(0, 0));
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      addToWidgets();
+    });
+
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          MYOutlineBtn(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            icon: Icons.favorite,
-            iconColor: kBlueIcon,
-            bColor: kGreyFont.withOpacity(0.5),
-            function: () {
-              print("11111");
-            },
+      body: CustomScrollView(
+        slivers: [
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 28,
+            ),
           ),
-          MYOutlineBtn(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              icon: Icons.person,
-              iconColor: kBlueIcon,
-              bColor: kGreyFont.withOpacity(0.5),
-              function: () {
-                print("2222");
-              }),
-          const SizedBox(
-            width: 16,
-          )
+          HomeAppBar(
+            onTapLove: () {},
+            onTapPerson: () {},
+          ),
+          SliverFillRemaining(
+            hasScrollBody: true,
+            child: AnimatedList(
+              key: _key,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              physics: NeverScrollableScrollPhysics(),
+              initialItemCount: levelWidgets.length,
+              itemBuilder: (context, index, animation) => SlideTransition(
+                position: animation.drive(myOffset),
+                child: levelWidgets[index],
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 28,
+            ),
+          ),
         ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Let\'s Play',
-              style: TextStyle(
-                fontSize: 32,
-                color: kRedFont,
-                fontWeight: FontWeight.bold,
-                fontFamily: kFontFamily,
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            const Text(
-              'Be the First!',
-              style: TextStyle(
-                fontSize: 18,
-                color: kGreyFont,
-                fontFamily: kFontFamily,
-              ),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return MyLevelWidget(
-                      fun: () {
-                        navigation(index);
-                      },
-                      level: levels[index]);
-                },
-                itemCount: levels.length,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

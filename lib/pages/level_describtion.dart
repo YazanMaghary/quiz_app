@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:team_quiz_app/modules/level.dart';
 import 'package:team_quiz_app/pages/home.dart';
-import 'package:team_quiz_app/widgets/fadeBuilder.dart';
-
-import '../constants.dart';
+import '../modules/level.dart';
+import '../shared/resources/assets.dart';
+import '../shared/resources/colors.dart';
+import '../shared/resources/fonts.dart';
+import '../shared/widgets/fade_builder.dart';
 
 class LevelDescription extends StatelessWidget {
-  const LevelDescription({Key? key, required this.level, required this.onTap})
-      : super(key: key);
+  const LevelDescription(
+    this.level, {
+    Key? key,
+  }) : super(key: key);
   final Level level;
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,7 @@ class LevelDescription extends StatelessWidget {
                 width: 40,
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.pop(
-                        context, FadeRouteBuilder(page: const HomePage()));
+                    Navigator.pop(context, FadeBuilder(const HomePage()));
                   },
                   style: const ButtonStyle().copyWith(
                       shape: const MaterialStatePropertyAll(
@@ -91,7 +92,9 @@ class LevelDescription extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: ElevatedButton(
-                  onPressed: onTap,
+                  onPressed: () {
+                    Navigator.pushNamed(context, level.route);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(

@@ -3,18 +3,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:team_quiz_app/widgets/quiz_header.dart';
-import 'package:team_quiz_app/widgets/score_keeper_view.dart';
+import 'package:team_quiz_app/shared/widgets/quiz_header.dart';
+import 'package:team_quiz_app/shared/widgets/score_keeper_view.dart';
 
-import '../constants.dart';
-import '../modules/true_false/quiz_brain.dart';
-import '../widgets/alert.dart';
+import '../../shared/resources/colors.dart';
+import '../../shared/widgets/alert.dart';
 
-import 'home.dart';
+import '../home.dart';
+import 'quiz_brain.dart';
 
 class TrueFalseQuiz extends StatefulWidget {
-  static const routeName = 'level1';
-
   const TrueFalseQuiz({super.key});
   @override
   TrueFalseQuizState createState() => TrueFalseQuizState();
@@ -165,7 +163,8 @@ class TrueFalseQuizState extends State<TrueFalseQuiz> {
                   padding: const EdgeInsets.all(15.0),
                   child: ElevatedButton(
                     style: const ButtonStyle().copyWith(
-                      backgroundColor: const MaterialStatePropertyAll(Colors.red),
+                      backgroundColor:
+                          const MaterialStatePropertyAll(Colors.red),
                     ),
                     child: const Text(
                       'False',
