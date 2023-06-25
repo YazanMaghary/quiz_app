@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:team_quiz_app/modules/level.dart';
+import 'package:team_quiz_app/pages/home.dart';
+import 'package:team_quiz_app/widgets/fadeBuilder.dart';
 
 import '../constants.dart';
 
@@ -30,7 +32,8 @@ class LevelDescription extends StatelessWidget {
                 width: 40,
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(
+                        context, FadeRouteBuilder(page: const HomePage()));
                   },
                   style: const ButtonStyle().copyWith(
                       shape: const MaterialStatePropertyAll(

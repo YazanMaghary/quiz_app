@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:team_quiz_app/pages/home.dart';
+import 'package:team_quiz_app/widgets/fadeBuilder.dart';
 import 'package:team_quiz_app/widgets/my_outline_btn.dart';
 
 class QuizHeader extends StatelessWidget {
@@ -27,8 +28,8 @@ class QuizHeader extends StatelessWidget {
               // Navigator.pop(context);
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
+                FadeRouteBuilder(
+                  page: const HomePage(),
                 ),
                 (route) => false,
               );

@@ -5,13 +5,15 @@ import 'package:team_quiz_app/constants.dart';
 import 'package:team_quiz_app/modules/level.dart';
 import 'package:team_quiz_app/pages/multiple_q_screen.dart';
 import 'package:team_quiz_app/pages/true_false_q_screen.dart';
+import 'package:team_quiz_app/widgets/fadeBuilderRoute.dart';
 import 'package:team_quiz_app/widgets/my_outline_btn.dart';
 
+import '../widgets/fadeBuilder.dart';
 import '../widgets/my_level_widget.dart';
 import 'level_describtion.dart';
 
 class HomePage extends StatefulWidget {
-    static const routeName = 'HomePage';
+  static const routeName = 'HomePage';
 
   const HomePage({
     super.key,
@@ -41,21 +43,25 @@ class _HomePageState extends State<HomePage> {
       case 0:
         Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (_) => LevelDescription(
+            FadeRouteBuilder(
+                page: LevelDescription(
                     level: levels[0],
                     onTap: () {
-                      Navigator.pushNamed(context, TrueFalseQuiz.routeName);
+                      Navigator.push(
+                          context,
+                          FadeRouteBuilder2(
+                              routeName: TrueFalseQuiz.routeName));
                     })));
         break;
       case 1:
         Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (_) => LevelDescription(
+            FadeRouteBuilder(
+                page: LevelDescription(
                     level: levels[1],
                     onTap: () {
-                      Navigator.pushNamed(context, MultiQScreen.routeName);
+                      Navigator.push(context,
+                          FadeRouteBuilder2(routeName: MultiQScreen.routeName));
                     })));
         break;
       default:
