@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:team_quiz_app/pages/home.dart';
 
-import '../../routing/routes.dart';
-import 'fade_builder.dart';
 import 'my_outline_btn.dart';
 
 class QuizHeader extends StatelessWidget {

@@ -141,13 +141,18 @@ class TrueFalseQuizState extends State<TrueFalseQuiz> {
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: ElevatedButton(
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.green),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 16),
                     ),
                     child: const Text(
                       'True',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.blue,
                         fontSize: 20.0,
                       ),
                     ),
@@ -162,15 +167,19 @@ class TrueFalseQuizState extends State<TrueFalseQuiz> {
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: ElevatedButton(
-                    style: const ButtonStyle().copyWith(
-                      backgroundColor:
-                          const MaterialStatePropertyAll(Colors.red),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 16),
                     ),
                     child: const Text(
                       'False',
                       style: TextStyle(
                         fontSize: 20.0,
-                        color: Colors.white,
+                        color: Colors.blue,
                       ),
                     ),
                     onPressed: () {
