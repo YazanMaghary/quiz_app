@@ -4,7 +4,7 @@ class QuizBrainMulti {
   int _questionNumber = 0;
 
   int get questionNumber => _questionNumber;
-  final List<QuestionMultiple> _questionBank = [
+  final List<QuestionMultiple> questionBank = [
     QuestionMultiple('You can lead a cow down stairs but not up stairs.', 1,
         ['always', 'never', 'sometimes']),
     QuestionMultiple(
@@ -14,29 +14,29 @@ class QuizBrainMulti {
   ];
 
   String getQuestionText() {
-    return _questionBank[_questionNumber].questionText;
+    return questionBank[_questionNumber].questionText;
   }
 
   int getQuestionBankLength() {
-    return _questionBank.length;
+    return questionBank.length;
   }
 
   int getQuestionAnswer() {
-    return _questionBank[_questionNumber].questionAnswer;
+    return questionBank[_questionNumber].questionAnswer;
   }
 
   List<String> getOptions() {
-    return _questionBank[_questionNumber].options;
+    return questionBank[_questionNumber].options;
   }
 
   void nextQuestion() {
-    if (_questionNumber < _questionBank.length - 1) {
+    if (_questionNumber < questionBank.length - 1) {
       _questionNumber++;
     }
   }
 
   bool isFinished() {
-    if (_questionNumber >= _questionBank.length - 1) {
+    if (_questionNumber >= questionBank.length - 1) {
       return true;
     } else {
       return false;

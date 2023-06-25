@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:team_quiz_app/modules/level.dart';
 import 'package:team_quiz_app/pages/level_describtion.dart';
+import 'package:team_quiz_app/pages/multipe_choice/quiz_brain_multiple.dart';
 import 'package:team_quiz_app/shared/widgets/fade_builder.dart';
 
 import '../pages/home.dart';
@@ -16,7 +17,8 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
     case Routes.trueOrFalse:
       return FadeBuilder(const TrueFalseQuiz());
     case Routes.multiple:
-      return FadeBuilder(const MultiQScreen());
+    QuizBrainMulti quizBrain=settings.arguments as QuizBrainMulti;
+      return FadeBuilder( MultiQScreen(quizBrain: quizBrain,));
     case Routes.levelDescription:
       Level level = settings.arguments as Level;
       return FadeBuilder(LevelDescription(level));

@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:team_quiz_app/pages/multipe_choice/quiz_brain_multiple.dart';
+import 'package:team_quiz_app/pages/true_false/sub_model.dart';
 import 'package:team_quiz_app/shared/resources/colors.dart';
 import 'package:team_quiz_app/modules/level.dart';
 
@@ -20,21 +22,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Level> levels = [
-    const Level(
+     Level(
       icon: Icons.check,
       title: 'True or False',
       subtitle: 'Level 1',
       image: assetBags,
       colors: [kL1, kL12],
-      route: Routes.trueOrFalse,
+      route: Routes.multiple,
+      quizBrain: SubBrain() ,
     ),
-    const Level(
+     Level(
       icon: Icons.play_arrow,
       title: 'Multiple Choice',
       subtitle: 'Level 2',
       image: assetBallonSmall,
       colors: [kL2, kL22],
       route: Routes.multiple,
+      quizBrain: QuizBrainMulti(),
+
     ),
   ];
   List<MyLevelWidget> levelWidgets = [];

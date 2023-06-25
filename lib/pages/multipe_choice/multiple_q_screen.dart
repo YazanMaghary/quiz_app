@@ -12,14 +12,16 @@ import '../../shared/widgets/choice_button.dart';
 import 'quiz_brain_multiple.dart';
 
 class MultiQScreen extends StatefulWidget {
-  const MultiQScreen({Key? key}) : super(key: key);
+  const MultiQScreen({Key? key, required this.quizBrain}) : super(key: key);
+  final QuizBrainMulti quizBrain;
 
   @override
   State<MultiQScreen> createState() => _MultiQScreenState();
 }
 
 class _MultiQScreenState extends State<MultiQScreen> {
-  QuizBrainMulti quizMulti = QuizBrainMulti();
+ late QuizBrainMulti quizMulti ;
+
 
   int? userChoice;
   int counter = 10;
@@ -119,6 +121,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
 
   @override
   void initState() {
+    quizMulti=widget.quizBrain;
     startTimer();
     super.initState();
   }
