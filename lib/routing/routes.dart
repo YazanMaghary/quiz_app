@@ -1,6 +1,5 @@
 class Routes {
-  static const trueOrFalse = 'trueOrFalse';
-  static const multiple = 'multiple';
+  static const question = 'question';
   static const homePage = 'homePage';
   static const levelDescription = 'levelDescription';
 }

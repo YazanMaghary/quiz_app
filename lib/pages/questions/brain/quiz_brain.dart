@@ -1,17 +1,10 @@
-import 'package:team_quiz_app/modules/question_multiple.dart';
+import '../../../modules/question.dart';
 
-class QuizBrainMulti {
+abstract class QuizBrain {
   int _questionNumber = 0;
 
   int get questionNumber => _questionNumber;
-  final List<QuestionMultiple> questionBank = [
-    QuestionMultiple('You can lead a cow down stairs but not up stairs.', 1,
-        ['always', 'never', 'sometimes']),
-    QuestionMultiple(
-        'Approximately one quarter of human bones are in the feet.',
-        0,
-        ['agree', 'disagree', 'not sure']),
-  ];
+  late List<Question> questionBank;
 
   String getQuestionText() {
     return questionBank[_questionNumber].questionText;

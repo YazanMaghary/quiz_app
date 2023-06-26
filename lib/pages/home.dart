@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:team_quiz_app/pages/multipe_choice/quiz_brain_multiple.dart';
-import 'package:team_quiz_app/pages/true_false/sub_model.dart';
+import 'package:team_quiz_app/pages/questions/brain/multi_quiz_brain.dart';
+import 'package:team_quiz_app/pages/questions/brain/true_false_brain.dart';
 import 'package:team_quiz_app/shared/resources/colors.dart';
 import 'package:team_quiz_app/modules/level.dart';
 
@@ -22,24 +22,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Level> levels = [
-     Level(
+    Level(
       icon: Icons.check,
       title: 'True or False',
       subtitle: 'Level 1',
       image: assetBags,
       colors: [kL1, kL12],
-      route: Routes.multiple,
-      quizBrain: SubBrain() ,
+      route: Routes.question,
+      quizBrain: TrueFalseBrain(),
     ),
-     Level(
+    Level(
       icon: Icons.play_arrow,
       title: 'Multiple Choice',
       subtitle: 'Level 2',
       image: assetBallonSmall,
       colors: [kL2, kL22],
-      route: Routes.multiple,
-      quizBrain: QuizBrainMulti(),
-
+      route: Routes.question,
+      quizBrain: MultiBrain(),
     ),
   ];
   List<MyLevelWidget> levelWidgets = [];
@@ -60,7 +59,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Tween<Offset> myOffset =
-      Tween<Offset>(begin: Offset(0, -1), end: Offset(0, 0));
+      Tween<Offset>(begin: const Offset(0, -1), end: const Offset(0, 0));
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -89,7 +88,7 @@ class _HomePageState extends State<HomePage> {
             child: AnimatedList(
               key: _key,
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               initialItemCount: levelWidgets.length,
               itemBuilder: (context, index, animation) => SlideTransition(
                 position: animation.drive(myOffset),
