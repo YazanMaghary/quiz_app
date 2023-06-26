@@ -22,18 +22,14 @@ class HomeAppBar extends StatelessWidget {
           icon: Icons.favorite,
           iconColor: kBlueIcon,
           bColor: kGreyFont.withOpacity(0.5),
-          function: () {
-            print("11111");
-          },
+          function: () {},
         ),
         MYOutlineBtn(
             padding: const EdgeInsets.symmetric(vertical: 4),
             icon: Icons.person,
             iconColor: kBlueIcon,
             bColor: kGreyFont.withOpacity(0.5),
-            function: () {
-              print("2222");
-            }),
+            function: () {}),
         const SizedBox(
           width: 16,
         )

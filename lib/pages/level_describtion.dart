@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:team_quiz_app/pages/home.dart';
-import 'package:team_quiz_app/pages/multipe_choice/quiz_brain_multiple.dart';
-import 'package:team_quiz_app/pages/true_false/sub_model.dart';
 import '../modules/level.dart';
 import '../shared/resources/assets.dart';
 import '../shared/resources/colors.dart';
@@ -95,7 +93,8 @@ class LevelDescription extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 12),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, level.route,arguments: level.quizBrain);
+                    Navigator.pushNamed(context, level.route,
+                        arguments: level.quizBrain);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,

@@ -9,19 +9,18 @@ import '../../shared/resources/assets.dart';
 import '../../shared/resources/colors.dart';
 import '../../shared/resources/fonts.dart';
 import '../../shared/widgets/choice_button.dart';
-import 'quiz_brain_multiple.dart';
+import 'brain/quiz_brain.dart';
 
-class MultiQScreen extends StatefulWidget {
-  const MultiQScreen({Key? key, required this.quizBrain}) : super(key: key);
-  final QuizBrainMulti quizBrain;
+class QuestionScreen extends StatefulWidget {
+  const QuestionScreen({Key? key, required this.quizBrain}) : super(key: key);
+  final QuizBrain quizBrain;
 
   @override
-  State<MultiQScreen> createState() => _MultiQScreenState();
+  State<QuestionScreen> createState() => _QuestionScreenState();
 }
 
-class _MultiQScreenState extends State<MultiQScreen> {
- late QuizBrainMulti quizMulti ;
-
+class _QuestionScreenState extends State<QuestionScreen> {
+  late QuizBrain quizMulti;
 
   int? userChoice;
   int counter = 10;
@@ -121,7 +120,7 @@ class _MultiQScreenState extends State<MultiQScreen> {
 
   @override
   void initState() {
-    quizMulti=widget.quizBrain;
+    quizMulti = widget.quizBrain;
     startTimer();
     super.initState();
   }
