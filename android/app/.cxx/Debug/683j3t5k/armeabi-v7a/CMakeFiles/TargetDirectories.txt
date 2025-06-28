@@ -1,0 +1,2 @@
+C:/Users/zezo2/StudioProjects/quiz_app/android/app/.cxx/Debug/683j3t5k/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/zezo2/StudioProjects/quiz_app/android/app/.cxx/Debug/683j3t5k/armeabi-v7a/CMakeFiles/rebuild_cache.dir

@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:team_quiz_app/pages/questions/brain/multi_quiz_brain.dart';
 import 'package:team_quiz_app/pages/questions/brain/true_false_brain.dart';
-import 'package:team_quiz_app/shared/resources/colors.dart';
+import 'package:team_quiz_app/core/shared/resources/colors.dart';
 import 'package:team_quiz_app/modules/level.dart';
 
-import '../routing/routes.dart';
-import '../shared/resources/assets.dart';
-import '../shared/widgets/app_bar.dart';
-import '../shared/widgets/my_level_widget.dart';
+import '../core/routing/routes.dart';
+import '../core/shared/resources/assets.dart';
+import '../core/shared/widgets/app_bar.dart';
+import '../core/shared/widgets/my_level_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> {
             onTapLove: () {},
             onTapPerson: () {},
           ),
+          //body area
           SliverFillRemaining(
             hasScrollBody: true,
             child: AnimatedList(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:team_quiz_app/pages/home.dart';
 import '../modules/level.dart';
-import '../shared/resources/assets.dart';
-import '../shared/resources/colors.dart';
-import '../shared/resources/fonts.dart';
-import '../shared/widgets/fade_builder.dart';
+import '../core/shared/resources/assets.dart';
+import '../core/shared/resources/colors.dart';
+import '../core/shared/resources/fonts.dart';
+import '../core/shared/widgets/fade_builder.dart';
 
 class LevelDescription extends StatelessWidget {
   const LevelDescription(
@@ -37,14 +37,14 @@ class LevelDescription extends StatelessWidget {
                     Navigator.pop(context, FadeBuilder(const HomePage()));
                   },
                   style: const ButtonStyle().copyWith(
-                      shape: const MaterialStatePropertyAll(
+                      shape: const WidgetStatePropertyAll(
                         CircleBorder(),
                       ),
-                      side: const MaterialStatePropertyAll(
+                      side: const WidgetStatePropertyAll(
                         BorderSide(color: Colors.white),
                       ),
                       padding:
-                          const MaterialStatePropertyAll(EdgeInsets.all(8))),
+                          const WidgetStatePropertyAll(EdgeInsets.all(8))),
                   child: const Icon(
                     Icons.close,
                     color: Colors.white,
@@ -54,7 +54,7 @@ class LevelDescription extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Center(
-                  child: Image.asset(assetBallonBig),
+                  child: Image.asset(level.image),
                 ),
               ),
               Text(

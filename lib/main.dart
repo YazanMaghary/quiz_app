@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:team_quiz_app/routing/router.dart';
-import 'routing/routes.dart';
+import 'package:team_quiz_app/core/routing/router.dart';
+import 'core/routing/routes.dart';
 
 void main() {
   runApp(const MyApp());
