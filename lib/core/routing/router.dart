@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:team_quiz_app/modules/level.dart';
-import 'package:team_quiz_app/pages/level_describtion.dart';
-import 'package:team_quiz_app/core/shared/widgets/fade_builder.dart';
-import '../../pages/home.dart';
-import '../../pages/questions/brain/quiz_brain.dart';
-import '../../pages/questions/qestion_screen.dart';
+import 'package:team_quiz_app/view/pages/level_describtion.dart';
+import 'package:team_quiz_app/view/widgets/fade_builder.dart';
+import '../../view/pages/home.dart';
+import '../../view/pages/questions/brain/quiz_brain.dart';
+import '../../view/pages/questions/qestion_screen.dart';
 import 'routes.dart';
 
 Route<dynamic>? generateRoute(RouteSettings settings) {

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-import '../../routing/routes.dart';
+import '../../core/routing/routes.dart';
 
 Future showAlert(
     {required BuildContext context,

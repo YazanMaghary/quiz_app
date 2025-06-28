@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../resources/colors.dart';
+import '../../core/shared/resources/colors.dart';
 
 class ChoiceButton extends StatelessWidget {
   const ChoiceButton(

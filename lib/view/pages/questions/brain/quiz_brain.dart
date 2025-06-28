@@ -1,4 +1,4 @@
-import '../../../modules/question.dart';
+import '../../../../modules/question.dart';
 
 abstract class QuizBrain {
   int _questionNumber = 0;

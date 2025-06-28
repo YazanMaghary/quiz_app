@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:team_quiz_app/modules/level.dart';
-import 'package:team_quiz_app/core/shared/widgets/my_outline_btn.dart';
+import 'package:team_quiz_app/view/widgets/my_outline_btn.dart';
 
-import '../resources/fonts.dart';
+import '../../core/shared/resources/fonts.dart';
 
 class MyLevelWidget extends StatelessWidget {
   final Function() fun;

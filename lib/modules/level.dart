@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../pages/questions/brain/quiz_brain.dart';
+import '../view/pages/questions/brain/quiz_brain.dart';
 
 class Level {
   final IconData icon;

@@ -1,6 +1,6 @@
-import 'package:team_quiz_app/pages/questions/brain/quiz_brain.dart';
+import 'package:team_quiz_app/view/pages/questions/brain/quiz_brain.dart';
 
-import '../../../modules/question.dart';
+import '../../../../modules/question.dart';
 
 class MultiBrain extends QuizBrain {
   @override

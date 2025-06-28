@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../resources/colors.dart';
+import '../../core/shared/resources/colors.dart';
 import 'my_outline_btn.dart';
 
 class HomeAppBar extends StatelessWidget {

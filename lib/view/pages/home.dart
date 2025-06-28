@@ -1,15 +1,15 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:team_quiz_app/pages/questions/brain/multi_quiz_brain.dart';
-import 'package:team_quiz_app/pages/questions/brain/true_false_brain.dart';
+import 'package:team_quiz_app/view/pages/questions/brain/multi_quiz_brain.dart';
+import 'package:team_quiz_app/view/pages/questions/brain/true_false_brain.dart';
 import 'package:team_quiz_app/core/shared/resources/colors.dart';
 import 'package:team_quiz_app/modules/level.dart';
 
-import '../core/routing/routes.dart';
-import '../core/shared/resources/assets.dart';
-import '../core/shared/widgets/app_bar.dart';
-import '../core/shared/widgets/my_level_widget.dart';
+import '../../core/routing/routes.dart';
+import '../../core/shared/resources/assets.dart';
+import '../widgets/app_bar.dart';
+import '../widgets/my_level_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({

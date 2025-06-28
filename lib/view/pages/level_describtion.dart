@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:team_quiz_app/pages/home.dart';
-import '../modules/level.dart';
-import '../core/shared/resources/assets.dart';
-import '../core/shared/resources/colors.dart';
-import '../core/shared/resources/fonts.dart';
-import '../core/shared/widgets/fade_builder.dart';
+import 'package:team_quiz_app/view/pages/home.dart';
+import '../../modules/level.dart';
+import '../../core/shared/resources/assets.dart';
+import '../../core/shared/resources/colors.dart';
+import '../../core/shared/resources/fonts.dart';
+import '../widgets/fade_builder.dart';
 
 class LevelDescription extends StatelessWidget {
   const LevelDescription(

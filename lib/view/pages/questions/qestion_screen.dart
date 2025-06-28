@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:team_quiz_app/core/shared/widgets/alert.dart';
-import 'package:team_quiz_app/core/shared/widgets/quiz_header.dart';
-import 'package:team_quiz_app/core/shared/widgets/score_keeper_view.dart';
-import '../../core/shared/resources/assets.dart';
-import '../../core/shared/resources/colors.dart';
-import '../../core/shared/resources/fonts.dart';
-import '../../core/shared/widgets/choice_button.dart';
+import 'package:team_quiz_app/view/widgets/alert.dart';
+import 'package:team_quiz_app/view/widgets/quiz_header.dart';
+import 'package:team_quiz_app/view/widgets/score_keeper_view.dart';
+import '../../../core/shared/resources/assets.dart';
+import '../../../core/shared/resources/colors.dart';
+import '../../../core/shared/resources/fonts.dart';
+import '../../widgets/choice_button.dart';
 import 'brain/quiz_brain.dart';
 
 class QuestionScreen extends StatefulWidget {
