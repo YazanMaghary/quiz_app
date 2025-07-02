@@ -9,7 +9,7 @@ A new Quiz App Project using flutter framework
   <li>📊 Real-time score tracking</li>
   <li>🔁 Restart quizzes anytime</li>
   <li>🎨 Beautiful and responsive UI</li>
-  <li>💾 Offline functionality (optional)</li>
+  <li>💾 Offline functionality</li>
 </ul>
 
 <h2>🚀 Getting Started</h2>
@@ -24,7 +24,7 @@ A new Quiz App Project using flutter framework
 <h3>Installation</h3>
 <ol>
   <li>Clone the repository:</li>
-  <pre><code>git clone https://github.com/your-username/quiz-app.git
+  <pre><code>git clone https://github.com/YazanMaghary/quiz_app.git
 cd quiz-app</code></pre>
 
   <li>Get the dependencies:</li>
@@ -46,20 +46,22 @@ cd quiz-app</code></pre>
   <thead>
     <tr>
       <th>Home Screen</th>
+      <th>Quiz start Screen</th>
       <th>Quiz Screen</th>
-      <th>Result Screen</th>
+      <th>Quiz Screen</th>
+      <th>Quiz Finish</th>
     </tr>
   </thead>
   <tbody>
     <tr>
 
-  <img src="./screenshots/Screenshot_1751116007.png" width="150" /></td>
-      <td>  <img src="./screenshots/Screenshot_1751116008.png" width="150" /></td>
-      <td>   <img src="./screenshots/Screenshot_1751116014.png" width="150" /></td>
+<td>  <img src="./screenshots/home.png" width="150" /></td>
+      <td>  <img src="./screenshots/Screenshot_1751116007.png" width="150" /></td>
+      <td>   <img src="./screenshots/Screenshot_1751116008.png" width="150" /></td>
       <td>   <img src="./screenshots/Screenshot_1751116014.png" width="150" /></td>
       <td>     <img src="./screenshots/Screenshot_1751116026.png" width="150" /></td>
       
-    </tr>
+  </tr>
   </tbody>
 </table>
 
